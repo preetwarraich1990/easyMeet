@@ -1,0 +1,5 @@
+export const sidebar = {
+    LEFT_SIDEBAR: 'LEFT_SIDEBAR',
+    RIGHT_SIDEBAR: 'RIGHT_SIDEBAR',
+    TOGGLE_AUTO_HIDE: 'TOGGLE_AUTO_HIDE'
+};
