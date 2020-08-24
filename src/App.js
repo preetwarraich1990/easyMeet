@@ -5,6 +5,9 @@ import './scss/style.scss';
 import createStore from './store/store';
 import { loadUser } from './actions/auth';
 import ProtectedRoute from './routing/ProtectedRoute';
+import SignUp from './views/Pages/Register/signUp';
+import stepOne from './views/Pages/onBoardingSteps/stepOne';
+import PublicRoute from './routing/PublicRoute';
 
 const loading = () => (
     <div className='animated fadeIn pt-3 text-center'>
@@ -29,8 +32,9 @@ const App = () => {
             <BrowserRouter>
                 <React.Suspense fallback={loading()}>
                     <Switch>
-                        <Route exact path='/login' component={Login} />
-                        <Route exact path='/register' component={Register} />
+                        <PublicRoute exact path='/login' component={Login} />
+                        <PublicRoute exact path='/sign-up' component={SignUp} />
+                        <ProtectedRoute exact path='/onBoarding-one' component={stepOne} />
                         <ProtectedRoute path='/' component={DefaultLayout} />
                     </Switch>
                 </React.Suspense>

@@ -1,10 +1,10 @@
 {
-  "name": "smacty-web-application",
+  "name": "easy-meat-web-application",
   "version": "1.0.0",
-  "description": "Smacty cloud",
-  "author": "Smacty dev team",
+  "description": "Easy Meat",
+  "author": "gpcoders team",
   "homepage": "smacty.com",
-  "copyright": "Copyright 2020 Smacty",
+  "copyright": "Copyright 2020 Easy Meat",
   "private": true,
   "scripts": {
     "start": "npm run dev-server",

@@ -1,0 +1,4 @@
+export const AUTHENTICATION = {
+    SPINNER: 'SPINNER',
+    SET_MEETER_SLUG: 'SET_MEETER_SLUG'
+};

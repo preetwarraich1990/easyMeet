@@ -3,7 +3,7 @@ import axios from 'axios';
 const instance = axios.create({
     baseURL: process.env.API_HOST,
     timeout: 5000,
-    headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accept': 'application/json' }
+    headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', Accept: 'application/json' }
 });
 
 export const setAuthToken = token => {

@@ -6,7 +6,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 const BrotliPlugin = require('brotli-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
-const TerserPlugin = require('terser-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin');
 
 process.env.BABEL_ENV = 'production';
 process.env.NODE_ENV = 'production';
@@ -23,8 +23,8 @@ module.exports = {
     },
     optimization: {
         minimize: true,
-        minimizer: [new TerserPlugin()],
-      },
+        minimizer: [new TerserPlugin()]
+    },
     module: {
         rules: [
             {
@@ -51,7 +51,7 @@ module.exports = {
                 use: ['@svgr/webpack', 'url-loader']
             },
             {
-                test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
+                test: /\.(woff(2)?|ttf|eot|otf)(\?v=\d+\.\d+\.\d+)?$/,
                 use: [
                     {
                         loader: 'file-loader',
