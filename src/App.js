@@ -34,7 +34,6 @@ const App = () => {
                     <Switch>
                         <PublicRoute exact path='/login' component={Login} />
                         <PublicRoute exact path='/sign-up' component={SignUp} />
-                        <ProtectedRoute exact path='/onBoarding-one' component={stepOne} />
                         <ProtectedRoute path='/' component={DefaultLayout} />
                     </Switch>
                 </React.Suspense>

@@ -2,18 +2,38 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import TheHeader from '../../../containers/TheHeader';
 import { checkSlugAvailability } from '../../../redux/boarding/action';
+import { updateSlug } from '../../../redux/boarding/action';
 
-const stepOne = () => {
+const stepOne = (props) => {
     /**
      * Local State
      */
     const [meetSlug, setMeetSlug] = useState(localStorage.getItem('meeter_slug'));
+    const [error, setError] = useState(null);
     const [typingTimeout, setTypingTimeout] = useState(true);
     const dispatch = useDispatch();
+    const { history } = props;
     /**
      * Handle Submit
      */
-    const handleSubmit = () => {};
+    const handleSubmit = () => {
+        const data = {
+            'meeter_slug': meetSlug
+        };
+        console.log(data);
+        if (error == null) {
+            dispatch(updateSlug(data))
+                .then(res => {
+                    if (res.status == '203') {
+                        setError('This Meeter Slug already exists.');
+                    } else {
+                        setError(null);
+                        history.push('/onBoarding-two');
+                    }
+                })
+                .catch(err => console.log(err));
+        }
+    };
 
     const checkAvail = evt => {
         console.log(evt.target.value);
@@ -26,9 +46,16 @@ const stepOne = () => {
         setTypingTimeout(
             setTimeout(() => {
                 dispatch(checkSlugAvailability(value))
-                    .then(res => console.log(res))
+                    .then(res => {
+                        if (res.status == '203') {
+                            setError('This Meeter Slug already exists.');
+                        } else {
+                            setError(null);
+                        }
+                    }
+                    )
                     .catch(err => console.log(err));
-            }, 4000)
+            }, 2000)
         );
     };
 
@@ -90,6 +117,7 @@ const stepOne = () => {
                                         Continue
                                     </button>
                                 </div>
+                                {error !== null && <p className='customErrors'>{error}</p>}
                             </div>
                         </div>
                     </div>

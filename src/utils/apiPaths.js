@@ -3,5 +3,6 @@ export const apiPaths = {
         signUp: '/sign-up',
         login: '/login'
     },
-    meeter_slug: '/check-meeting-slug/?meeter_slug='
+    meeter_slug: '/check-meeting-slug/?meeter_slug=',    
+    meeter_slug_update: '/update-meeting-slug'
 };
