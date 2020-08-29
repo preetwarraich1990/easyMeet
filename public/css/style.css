@@ -16,7 +16,7 @@ Date            :  8/20/2020
 /* ============================================ *
  * font
  * ============================================ */
- @font-face {
+@font-face {
   font-family: "Sofia-Pro-Black-Italic";
   src: url("../fonts/Sofia Pro Black Italic.otf");
 }
@@ -449,7 +449,7 @@ span.field-icon {
   border: 1px solid #EEEEEE;
   padding: .7rem .7rem;
   border-radius: 4px;
- }
+}
 .requests-list .requster-container .avatar-container {
   width: 40px;
   height: 40px;
@@ -458,16 +458,16 @@ span.field-icon {
   opacity: 0.6;
   border: 1px solid #000000;
   font-family: "Sofia-Pro-Regular";
- }
+}
 .media-body h2.requesterName  {
-   font-size: .9rem;
-   font-family: "Sofia-Pro-Regular";
- }
+  font-size: .9rem;
+  font-family: "Sofia-Pro-Regular";
+}
 .requests-list .requster-container .request-summary {
   color: #000000;
   opacity: 0.8;
   padding-left: 3.5rem;
- }
+}
 /*===============================
  dashboard-6
  =================================*/
@@ -501,7 +501,7 @@ span.field-icon {
   left: -195%;
   margin-left: -80px;
   filter: drop-shadow(0px 15px 25px rgba(0, 0, 0, 0.1));
-/*   box-shadow: 0px -6px 20px 0px #00000029; */
+  /*   box-shadow: 0px -6px 20px 0px #00000029; */
 }
 #notifyAll:focus {
   box-shadow: none;
@@ -532,7 +532,7 @@ span.field-icon {
 
 /* Add animation (fade in the popup) */
 @-webkit-keyframes fadeIn {
-  from {opacity: 0;} 
+  from {opacity: 0;}
   to {opacity: 1;}
 }
 
@@ -543,69 +543,69 @@ span.field-icon {
 /*===============================
  requester profile
  =================================*/
- .meeterProfile .notifyPar {
+.meeterProfile .notifyPar {
   margin-bottom: 2.4rem;
- }
- .meeterProfile h2.requesterName {
-   font-size: 1.1rem;
-   font-family: "Sofia-Pro-medium";
- }
- .requesterMsg {
+}
+.meeterProfile h2.requesterName {
+  font-size: 1.1rem;
+  font-family: "Sofia-Pro-medium";
+}
+.requesterMsg {
   font-size: 1.03rem;
- }
- .meeterProfile .media {
+}
+.meeterProfile .media {
   padding-bottom: 1.8rem;
- }
- .MeeterProfileArrow {
-   font-size: 2rem;
- }
- .meeterProfile .meeterProfileMsg {
+}
+.MeeterProfileArrow {
+  font-size: 2rem;
+}
+.meeterProfile .meeterProfileMsg {
   margin-top: 4.7rem;
   border: 2px solid #017AFF;
   border-radius: 5px;
- }
- .meeterProfile .meeterProfileMsg h2 {
+}
+.meeterProfile .meeterProfileMsg h2 {
   font-size: 1.1rem;
- }
- .meeterProfile .meeterProfileMsg span {
+}
+.meeterProfile .meeterProfileMsg span {
   font-size: .9rem;
- }
- .meeterProfile .meeterProfileMsg .btn {
+}
+.meeterProfile .meeterProfileMsg .btn {
   padding: .9rem 2.4rem;
   font-family: "Sofia-Pro-Light";
   margin-top: 1.2rem;
- }
- .meeterProfileSignUp {
+}
+.meeterProfileSignUp {
   padding: 4rem 0 0 1.8rem;
- }
- .MeeterLine {
+}
+.MeeterLine {
   background: #FFFFFF;
   border: 1px solid #EEEEEE;
   border-radius: 5px;
   height: 1px;
   margin-left: -45px;
   margin-right: -15px;
- }
+}
 .MeeterBrandContainer .navbar-brand {
   font-size: 2.25rem;
- }
+}
 .MeeterBrandContainer .Brandtext {
-   font-size: .87rem;
- }
- .meeterProfileSignUp .MeeterDetails {
+  font-size: .87rem;
+}
+.meeterProfileSignUp .MeeterDetails {
   padding-top: 1.8rem;
- }
- .meeterProfileSignUp .MeeterDetails h3 {
+}
+.meeterProfileSignUp .MeeterDetails h3 {
   font-size: 1.12rem;
- }
- .meeterProfileSignUp .MeeterDetails .btn {
+}
+.meeterProfileSignUp .MeeterDetails .btn {
   font-size: .87rem;
   padding: .7rem;
   font-family: "Sofia-Pro-Light";
- }
- /*===============================
- requester profile 6
- =================================*/
+}
+/*===============================
+requester profile 6
+=================================*/
 .Goodjob .avatar {
   width: 48px;;
   height: 48px;
