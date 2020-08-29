@@ -7,20 +7,15 @@ import { MainHeader } from '../../../containers/TheHeader';
 const Login = props => {
     const [email, setEmail] = useState('demo@gmail.com');
     const [password, setPassword] = useState('demo');
+    const { history } = props;
 
     const dispatch = useDispatch();
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
-    function login(e) {
-        localStorage.setItem('auth', true);
-        window.location.reload();
-        // dispatch(loginUser(email, password));
+    function login(e) { 
+          dispatch(loginUser(email, password, history));
     }
-
-    if (isAuthenticated) {
-        return <Redirect to='/dashboard' />;
-    }
-
+ 
     return (
         <>
             <MainHeader />

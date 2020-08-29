@@ -9,10 +9,10 @@ import {
 } from '../../actions/types';
 
 const initialState = {
-    token: '',
-    isAuthenticated: localStorage.getItem('auth') !== null,
+    token: localStorage.getItem('token') !== null ? localStorage.getItem('token') : null,
+    isAuthenticated: localStorage.getItem('token') !== null,
     loading: true,
-    user: null
+    user: localStorage.getItem('userInfo') !== null ? localStorage.getItem('userInfo') : null
 };
 
 export default (state = initialState, action) => {
@@ -33,6 +33,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 ...payload,
+                token: payload.token,
                 isAuthenticated: true,
                 loading: false
             };

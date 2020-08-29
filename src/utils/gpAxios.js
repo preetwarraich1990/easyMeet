@@ -1,12 +1,14 @@
 import axios from 'axios';
 
+const userToken = localStorage.getItem('token');
 export const base_url = process.env.API_HOST;
 
 export const gpAxios = axios.create({
     baseURL: base_url,
     headers: {
         // 'Content-Type': 'application/json',
-        Authorization: 'Basic ZWFzeW1lZXRjcDoyMDIwI0FCQ1Btaw=='
+        Authorization: 'Basic ZWFzeW1lZXRjcDoyMDIwI0FCQ1Btaw==',
+        'User-Key': userToken
     }
 });
 

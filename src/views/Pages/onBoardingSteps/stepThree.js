@@ -7,6 +7,7 @@ const stepThree = () => {
      * Handle Submit
      */
     const [meetSlug, setMeetSlug] = useState(localStorage.getItem('meeter_slug'));
+    console.log(localStorage.getItem('meeter_slug'));
     const handleSubmit = () => {
         history.push('/onBoarding-three');
     };
@@ -38,11 +39,11 @@ const stepThree = () => {
                                 easymeet.io/{meetSlug}
                             </div>
                             <div className="row icons mb-4">
-                                <div className="col mx-2 px-0"><a className="px-1 py-2" href="#"><img className="pr-1" src="images/Copy.png" alt="Copy" /> <span>Copy</span>  </a></div>
-                                    <div className="col mx-2 px-0"><a className="px-1 py-2" href="#"><img className="pr-1" src="images/facebook.png" alt="Facebook" /><span>Facebook</span>  </a></div>
-                                        <div className="col mx-2 px-0"><a className="px-1 py-2" href="#"><img className="pr-1" src="images/twitter.png" alt="Twitter" /> <span>Twitter</span>  </a></div>
-                                            <div className="col mx-2 px-0"><a className="px-1 py-2" href="#"><img className="pr-1" src="images/linkedin.png" alt="LinkedIn" /> <span>LinkedIn</span>  </a></div>
-                                                <div className="col mx-2 px-0"><a className="px-1 py-2" href="#"><img className="pr-1" src="images/Envelope.png" alt="Email" /> <span>Email</span>  </a></div>
+                                <div className="col mx-2 px-0"><a className="px-1 py-2" href="#"><img className="pr-1" src="assets/images/Copy.png" alt="Copy" /> <span>Copy</span>  </a></div>
+                                    <div className="col mx-2 px-0"><a className="px-1 py-2" href="#"><img className="pr-1" src="assets/images/facebook.png" alt="Facebook" /><span>Facebook</span>  </a></div>
+                                        <div className="col mx-2 px-0"><a className="px-1 py-2" href="#"><img className="pr-1" src="assets/images/twitter.png" alt="Twitter" /> <span>Twitter</span>  </a></div>
+                                            <div className="col mx-2 px-0"><a className="px-1 py-2" href="#"><img className="pr-1" src="assets/images/linkedin.png" alt="LinkedIn" /> <span>LinkedIn</span>  </a></div>
+                                                <div className="col mx-2 px-0"><a className="px-1 py-2" href="#"><img className="pr-1" src="assets/images/Envelope.png" alt="Email" /> <span>Email</span>  </a></div>
                                                 </div>
                                                 <div className="set-up-later w-100">
                                                     <div className="text-center"><button type="submit" className="btn btn-primary">To My Account</button></div>

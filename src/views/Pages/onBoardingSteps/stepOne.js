@@ -28,6 +28,8 @@ const stepOne = (props) => {
                         setError('This Meeter Slug already exists.');
                     } else {
                         setError(null);
+                        localStorage.removeItem('meeter_slug');
+                        localStorage.setItem('meeter_slug', meetSlug);
                         history.push('/onBoarding-two');
                     }
                 })

@@ -12,3 +12,12 @@ export const checkSlugAvailability = slug => dispatch => {
 export const updateSlug = slug => dispatch => {
     return gpAxios.put(apiPaths.meeter_slug_update, slug);
 };
+
+export const updateUserBio = bio => dispatch => {
+    return gpAxios.put(apiPaths.user_management.update_bio, bio);
+};
+
+
+export const updateProfilePicture = file => dispatch => {
+    return gpAxios.post(apiPaths.user_management.update_profile_pic, file);
+};
