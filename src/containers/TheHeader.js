@@ -64,7 +64,7 @@ export const MainHeader = () => {
                         <ul className='navbar-nav ml-auto'>
                             <li className='nav-item active'>
                             <Link to={`/login`}>
-                                <a href='#'>Login</a>
+                                Login
                             </Link> 
                             </li>
                             <li className='nav-item'>

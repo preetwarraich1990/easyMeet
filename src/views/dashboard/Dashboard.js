@@ -4,6 +4,8 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useDispatch } from 'react-redux';
 import { updateUserBio } from '../../redux/boarding/action';
 import { updateProfilePicture } from '../../redux/boarding/action';
+import { updateAvailability } from '../../redux/boarding/action';
+import { checkAvailability } from '../../redux/boarding/action';
 import { useSelector } from 'react-redux';
 import Files from 'react-files';
 import { useForm } from 'react-hook-form';
@@ -15,6 +17,8 @@ const Dashboard = () => {
     const [typingTimeout, setTypingTimeout] = useState(true);
     const dispatch = useDispatch();
     const user = useSelector(state => state.auth.user);
+    const availability = dispatch(checkAvailability(userInfo.id));
+    console.log(userInfo.id+"sdaasdsa"+ availability.data);
     
     const { handleSubmit } = useForm({
         mode: 'onChange'
@@ -22,7 +26,6 @@ const Dashboard = () => {
     const editBioClick = () => {
         setEditBio({ value: '', enable: true })
     };
-    console.log(userInfo);
     const updateBio = (value) => {
         const data = {
             'meeter_bio': value
@@ -52,8 +55,7 @@ const Dashboard = () => {
         }
         dispatch(updateProfilePicture(data))
                     .then(res => {
-                        if (res.status == '203') {
-                            console.log('Bio not updated');
+                        if (res.status == '203') { 
                         } else {
                             // console.log("userInfo=>>>>>>>>>>>>>");
                             localStorage.removeItem('userInfo');
@@ -78,15 +80,31 @@ const Dashboard = () => {
         console.log(data);
         dispatch(updateProfilePicture(data));
     };
+    const changeAvailability = (value) => {
+        if(value == true){
+            const data = { 
+                "meeter_availibility": "yes",
+                "time_duration": "30 minutes" 
+            };
+            dispatch(updateAvailability(data));
+        } else {
+            const data = {
+                "meeter_availibility": "no"
+            }
+            dispatch(updateAvailability(data));
+        }
+    }
     return (
         <>
         
-        <form className='mb-4' onSubmit={handleSubmit(handleRegister)}  enctype="multipart/form-data" autoComplete='off'>
+        <form className='mb-4' onSubmit={handleSubmit(handleRegister)}  encType="multipart/form-data" autoComplete='off'>
             <input type="file" id='exampleInputName' name="profile_pic" /> 
             <input type='submit' className='btn btn-primary w-100' value='Upload' />
         </form>
+        
+        <input  type="checkbox" onChange={e => changeAvailability(e.target.checked)} />
             <div className="modal fade" id="avilabilityStatus1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
+                <div className="modal-dialog modal-dialog-centered" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title small-size align-self-center">Changing your Availability</h5>

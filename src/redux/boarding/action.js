@@ -21,3 +21,13 @@ export const updateUserBio = bio => dispatch => {
 export const updateProfilePicture = file => dispatch => {
     return gpAxios.post(apiPaths.user_management.update_profile_pic, file);
 };
+
+
+export const updateAvailability = data => dispatch => {
+    return gpAxios.put(apiPaths.user_management.change_availability, data);
+};
+
+
+export const checkAvailability = meeter_id => dispatch => {
+    return gpAxios.get(apiPaths.user_management.check_meeter_availibility + meeter_id);
+};

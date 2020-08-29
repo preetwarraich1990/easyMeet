@@ -3,7 +3,9 @@ export const apiPaths = {
         signUp: '/sign-up',
         login: '/login',
         update_bio: '/update-meeter-bio',
-        update_profile_pic: '/upload-meeter-image'
+        update_profile_pic: '/upload-meeter-image',
+        change_availability: '/meeter/change-availibity',
+        check_meeter_availibility: 'check-meeter-availibility?meeter_id='
     },
     meeter_slug: '/check-meeting-slug/?meeter_slug=',    
     meeter_slug_update: '/update-meeting-slug'

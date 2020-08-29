@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../../actions/auth';
 import { Redirect } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { TheHeader, TheLayout } from '../../../containers';
+import { useForm } from 'react-hook-form'; 
 import { signUpRequest } from '../../../redux/authentications/action';
 import { MainHeader } from '../../../containers/TheHeader';
 
