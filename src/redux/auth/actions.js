@@ -4,7 +4,9 @@ import {
     LOGOUT,
     REGISTER_SUCCESS,
     REGISTER_FAILED,
-    AUTH_SPINNING
+    AUTH_SPINNING,
+    USER_LOADED,
+    AUTH_ERROR
 } from './types';
 import { gpAxios } from '~/utils/gpAxios';
 import { apiPaths } from '../../utils/apiPaths';
@@ -38,18 +40,12 @@ export const loginUser = (email, password, history = null) => async dispatch => 
     };
     try {
         const response = await gpAxios.post('/login', data);
-        dispatch(authSpinner(false));
+        setUserToken(response.data.data.result.auth_user_token);
         dispatch({
             type: LOGIN_SUCCESS,
-            payload: {
-                token: response.data.data.result.auth_user_token,
-                user: response.data.data.result
-            }
-        });
-
-        if (history !== null) {
-            history.push('/');
-        }
+            payload: response.data.data.result.auth_user_token
+        })
+        dispatch(loadUser());
     } catch (error) {
         dispatch(authSpinner(false));
         dispatch({
@@ -70,13 +66,11 @@ export const signUpRequest = (data, history) => dispatch => {
             if (response.data.status) {
                 dispatch({
                     type: REGISTER_SUCCESS,
-                    payload: { token: response.data.data.result.auth_user_token, user: response.data.data.result }
+                    payload: response.data.data.result.auth_user_token
                 });
-                setUserToken(response.data.data.result.auth_user_token);
+                dispatch(loadUser());
                 history.push('/onboarding-one');
             }
-
-            dispatch(authSpinner(false));
         })
         .catch(e => {
             dispatch(authSpinner(false));
@@ -84,20 +78,29 @@ export const signUpRequest = (data, history) => dispatch => {
         });
 };
 
-// export const loadUser = () => async dispatch => {
-//     setAuthToken(localStorage.getItem('token'));
-//     try {
-//         const res = await service.get('/users/me');
-//         dispatch({
-//             type: USER_LOADED,
-//             payload: res.data
-//         });
-//     } catch (e) {
-//         dispatch({
-//             type: AUTH_ERROR
-//         });
-//     }
-// };
+/**
+ *
+ * @param token
+ * @returns {function(...[*]=)}
+ */
+export const loadUser = () => async dispatch => {
+
+    try {
+        const res = await gpAxios.get('/meeter/me');
+        dispatch({
+            type: USER_LOADED,
+            payload: {
+                user: res.data.data.result,
+            }
+        });
+        dispatch(authSpinner(false));
+    } catch (e) {
+
+        dispatch({
+            type: AUTH_ERROR
+        });
+    }
+};
 
 export const logout = () => async dispatch => {
     dispatch({

@@ -3,12 +3,20 @@ import axios from 'axios';
 const userToken = localStorage.getItem('token');
 export const base_url = process.env.API_HOST;
 
+let withoutToken = {
+    Authorization: `Basic ${process.env.REACT_APP_TOKEN}`,
+}
+
+if(userToken !== null) {
+    withoutToken = {...withoutToken, "User-key": userToken}
+}
+
+console.log('token: ', userToken)
+
 
 export const gpAxios = axios.create({
     baseURL: base_url,
-    headers: {
-        Authorization: `Basic ${process.env.REACT_APP_TOKEN}`,
-    }
+    headers: withoutToken
 });
 
 /**

@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import createStore from './store/store';
 import ProtectedRoute from './routing/ProtectedRoute';
 import PublicRoute from './routing/PublicRoute';
+import { loadUser } from './redux/auth/actions';
 
 // Containers
 const Login = React.lazy(() => import('./views/Pages/PublicPages/Login/Login'));
@@ -21,6 +22,9 @@ const store = createStore;
 
 
 const App = () => {
+    useEffect(() => {
+        store.dispatch(loadUser());
+    }, []);
     return (
         <Provider store={store}>
             <BrowserRouter>

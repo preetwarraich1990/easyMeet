@@ -5,7 +5,8 @@ import {
     LOGIN_SUCCESS,
     AUTH_ERROR,
     LOGOUT,
-    AUTH_SPINNING
+    AUTH_SPINNING,
+    USER_LOADED
 } from './types';
 
 const initialState = {
@@ -24,29 +25,28 @@ export default (state = initialState, action) => {
                 loading: payload,
             };
         case REGISTER_SUCCESS:
-            localStorage.setItem('token', payload.token);
-            localStorage.setItem('userInfo', JSON.stringify(payload.user));
+            localStorage.setItem('token', payload);
             return {
                 ...state,
-                ...payload,
                 token: payload.token,
-                isAuthenticated: true,
-                loading: false
             };
         case LOGIN_SUCCESS:
-            localStorage.setItem('token', payload.token);
+            localStorage.setItem('token', payload);
+            return {
+                ...state,
+                token: payload.token,
+            };
+        case USER_LOADED:
             localStorage.setItem('userInfo', JSON.stringify(payload.user));
             return {
                 ...state,
-                ...payload,
-                token: payload.token,
                 isAuthenticated: true,
                 loading: false
             };
-
         case REGISTER_FAILED:
         case LOGIN_FAILED:
         case AUTH_ERROR:
+            return state
         case LOGOUT:
             localStorage.removeItem('token');
             localStorage.removeItem('userInfo');

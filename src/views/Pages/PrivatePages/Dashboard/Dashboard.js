@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { useState } from 'react';
 
 import { useDispatch } from 'react-redux';
@@ -18,8 +18,10 @@ const Dashboard = () => {
     const [typingTimeout, setTypingTimeout] = useState(true);
     const dispatch = useDispatch();
     const user = useSelector(state => state.auth.user);
-    const availability = dispatch(checkAvailability(userInfo.id));
-    console.log(userInfo.id+"sdaasdsa"+ availability.data);
+
+    useEffect(() => {
+        dispatch(checkAvailability(userInfo.id))
+    }, [])
     
     const { handleSubmit } = useForm({
         mode: 'onChange'
@@ -31,45 +33,8 @@ const Dashboard = () => {
         const data = {
             'meeter_bio': value
         };
-        setTypingTimeout(
-            setTimeout(() => {
-                dispatch(updateUserBio(data))
-                    .then(res => {
-                        if (res.status == '203') {
-                            console.log('Bio not updated');
-                        } else {
-                            // console.log("userInfo=>>>>>>>>>>>>>");
-                            localStorage.removeItem('userInfo');
-                            userInfo.meeter_bio = value;
-                            // console.log(userInfo);
-                            localStorage.setItem('userInfo', JSON.stringify(userInfo));
-                        }
-                    }
-                    )
-                    .catch(err => console.log(err));
-            }, 2000)
-        );
     };
 
-    const onFilesChange = (files) => {
-        const data = {
-            'meeter_image' : files
-        }
-        dispatch(updateProfilePicture(data))
-                    .then(res => {
-                        if (res.status == '203') { 
-                        } else {
-                            // console.log("userInfo=>>>>>>>>>>>>>");
-                            localStorage.removeItem('userInfo');
-                            userInfo.meeter_bio = value;
-                            // console.log(userInfo);
-                            localStorage.setItem('userInfo', JSON.stringify(userInfo));
-                        }
-                    }
-                    )
-                    .catch(err => console.log(err));
-        console.log(files)
-    };
 
     const onFilesError = (error, file) => {
         console.log('error code ' + error.code + ': ' + error.message)
@@ -80,7 +45,7 @@ const Dashboard = () => {
             meeter_image: formData.profile_pic,
             device_token: 'dasdkfjasdkf'
         };
-        console.log(data);
+
         dispatch(updateProfilePicture(data));
     };
 
