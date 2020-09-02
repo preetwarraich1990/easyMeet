@@ -10,6 +10,7 @@ import { loadUser } from './redux/auth/actions';
 // Containers
 const Login = React.lazy(() => import('./views/Pages/PublicPages/Login/Login'));
 const SignUp = React.lazy(() => import('./views/Pages/PublicPages/Register/SignUp'));
+const MeetingLink = React.lazy(() => import('./views/Pages/PublicPages/MeetingLink/MeetingLink'));
 const DefaultLayout = React.lazy(() => import('./containers/PrivateLayouts/TheLayout'));
 
 const loading = () => (
@@ -32,6 +33,7 @@ const App = () => {
                     <Switch>
                         <PublicRoute exact path='/login' component={Login}/>
                         <PublicRoute exact path='/sign-up' component={SignUp}/>
+                        <PublicRoute exact path='/meeting-link' component={MeetingLink}/>
                         <ProtectedRoute path='/' component={DefaultLayout}/>
                     </Switch>
                 </React.Suspense>

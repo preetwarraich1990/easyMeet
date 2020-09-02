@@ -283,7 +283,9 @@ span.field-icon {
 .onboarding .remove-step-space-2 {
   border-radius: 0 5px 5px 0!important;
 }
-
+.onboarding #openDrag {
+  cursor: pointer;
+}
 /*===============================
  dashboard
  =================================*/
@@ -322,6 +324,7 @@ span.field-icon {
 .dashboard .media-body .edit-bio {
   opacity: 0.6;
   font-family: "Sofia-Pro-Light";
+  cursor: pointer;
 }
 .dashboard .media-body .url-room {
   color: #017aff;

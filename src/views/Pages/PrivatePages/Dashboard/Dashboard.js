@@ -14,7 +14,6 @@ import UserInfo from './UserInfo/UserInfo';
 const Dashboard = () => {
     const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem('userInfo')));
     const [copiedURL, setCopiedURL] = useState({ copied: false });
-    const [editBio, setEditBio] = useState({ value: userInfo.meeter_bio, enable: false });
     const [typingTimeout, setTypingTimeout] = useState(true);
     const dispatch = useDispatch();
     const user = useSelector(state => state.auth.user);
@@ -26,14 +25,6 @@ const Dashboard = () => {
     const { handleSubmit } = useForm({
         mode: 'onChange'
     });
-    const editBioClick = () => {
-        setEditBio({ value: '', enable: true })
-    };
-    const updateBio = (value) => {
-        const data = {
-            'meeter_bio': value
-        };
-    };
 
 
     const onFilesError = (error, file) => {
@@ -71,8 +62,7 @@ const Dashboard = () => {
                         <div className="col-6 mr-auto bulk-action text-right pr-0">
                             <span className="col-3 align-self-center small-size text-left pr-0">Bulk Actions:</span>
                             <div className="notifyBtnContainer d-inline-block">
-                                <button id="notifyAll" className="btn default-btn small-size bg-white notify ml-3"
-                                        onClick="">
+                                <button id="notifyAll" className="btn default-btn small-size bg-white notify ml-3" >
                                     <i className="fa fa-bell-o mr-1" aria-hidden="true"/>
                                     Notify All
                                 </button>

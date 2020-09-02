@@ -1,5 +1,6 @@
 import { apiPaths } from '../../utils/apiPaths';
-import { gpAxios } from '../../utils/gpAxios';
+import { gpAxios } from '../../utils/gpAxios'; 
+import { loadUser } from '../auth/actions';
 
 /**
  *
@@ -23,8 +24,10 @@ export const updateSlug = slug => dispatch => {
  * @param bio
  * @returns {function(*): Promise<AxiosResponse<any>>}
  */
-export const updateUserBio = bio => dispatch => {
-    return gpAxios.put(apiPaths.user_management.update_bio, bio);
+export const updateUserBio = bio => async dispatch  => {
+    const updateBio = await gpAxios.put(apiPaths.user_management.update_bio, bio);
+    dispatch(loadUser());
+    return updateBio;
 };
 
 /**
@@ -41,8 +44,10 @@ export const updateProfilePicture = file => dispatch => {
  * @param data
  * @returns {function(*): Promise<AxiosResponse<any>>}
  */
-export const updateAvailability = data => dispatch => {
-    return gpAxios.put(apiPaths.user_management.change_availability, data);
+export const updateAvailability = data => async dispatch => {
+    const updateAvailability = await gpAxios.put(apiPaths.user_management.change_availability, data);
+    dispatch(loadUser());
+    return updateAvailability; 
 };
 
 /**

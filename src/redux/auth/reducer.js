@@ -41,6 +41,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 isAuthenticated: true,
+                user: payload.user,
                 loading: false
             };
         case REGISTER_FAILED:
