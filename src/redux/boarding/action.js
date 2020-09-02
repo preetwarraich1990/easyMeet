@@ -58,3 +58,17 @@ export const updateAvailability = data => async dispatch => {
 export const checkAvailability = meeter_id => dispatch => {
     return gpAxios.get(apiPaths.user_management.check_meeter_availibility + meeter_id);
 };
+
+
+/**
+ *
+ * @param meeter_id
+ * @returns {function(*): Promise<AxiosResponse<any>>}
+ */
+export const getMeeterData = meeter_slug => async dispatch => { 
+    alert(1);
+    console.log("trest",apiPaths.user_management.get_meeter_from_slug + meeter_slug);
+    const meeterData = await gpAxios.get(apiPaths.user_management.get_meeter_from_slug + meeter_slug);
+    dispatch(loadUser());
+    //return meeterData; 
+};
