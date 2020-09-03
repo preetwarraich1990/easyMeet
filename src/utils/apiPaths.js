@@ -9,5 +9,7 @@ export const apiPaths = {
         get_meeter_from_slug: '/meeter-details?meet_slug='
     },
     meeter_slug: '/check-meeting-slug/?meeter_slug=',    
-    meeter_slug_update: '/update-meeting-slug'
+    meeter_slug_update: '/update-meeting-slug',
+    get_meeting_request_url: '/meeting-request-send'
+    
 };

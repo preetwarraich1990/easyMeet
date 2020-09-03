@@ -72,3 +72,15 @@ export const getMeeterData = meeter_slug => async dispatch => {
     dispatch(loadUser());
     //return meeterData; 
 };
+
+
+/**
+ *
+ * @param meeter_id
+ * @returns {function(*): Promise<AxiosResponse<any>>}
+ */
+export const meetingRequest = (data, history) => async dispatch => {   
+    const meeterData = await gpAxios.post(apiPaths.get_meeting_request_url, data);
+    dispatch(loadUser());
+    return meeterData; 
+};

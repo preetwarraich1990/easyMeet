@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import ThePublicHeader from '~/containers/PublicLayouts/PublicHeader';
-import { getMeeterData } from '~/redux/auth/actions';
+import { meetingRequest } from '~/redux/auth/actions';
 
 function MeetingLink(props) {
     const dispatch = useDispatch();
@@ -11,22 +11,23 @@ function MeetingLink(props) {
     console.log(params.slug);
     
     useEffect(()=>{
-        dispatch(getMeeterData(params.slug));
+      //  dispatch(getMeeterData(params.slug));
         return true;
     },[]);
-    const {  handleSubmit } = useForm({
+    const { register, handleSubmit } = useForm({
         mode: 'onChange'
     });
     const handleRegister = formData => {
         const { history } = props;
-        // const data = {
-        //     meeter_fullname: formData.exampleInputName,
-        //     meeter_email: formData.exampleInputEmail1,
-        //     meeter_password: formData.exampleFormControlTextarea1,
-        //     device_token: 'dasdkfjasdkf'
-        // };
-        console.log(formData);
-        // dispatch(signUpRequest(data, history));
+        const data = {
+            "meeter_id" : '151',
+            "requester_name": formData.full_name,
+            "requester_email": formData.email,
+            "summary": formData.summary,
+            "device_token": 'dasdkfjasdkf'
+        };
+        console.log(data);
+        dispatch(meetingRequest(data, history));
     };
     return (
         <>    
@@ -85,16 +86,79 @@ function MeetingLink(props) {
                     <h3 className="mb-3">Some details before you meet:</h3>
                     <form className="mb-4" onSubmit={handleSubmit(handleRegister)}  autoComplete='off'>
                       <div className="form-group">
-                        <label for="exampleInputName">Your name</label>
-                        <input type="text" className="form-control" name="exampleInputName" placeholder="Enter your name" required />
+                        <label for="full_name">Your name</label>
+                        <input type="text" 
+                        className="form-control" 
+                        name="full_name" 
+                        placeholder="Enter your name" 
+                        required 
+                        ref={register({
+                          required: {
+                              value: true,
+                              message: 'Please enter your name'
+                          },
+                          pattern: {
+                              value: /(^[a-z?A-Z]{0,})([-']?[a-zA-Z]+)+( [a-zA-Z]([-']?[a-zA-Z]+)*)?$/,
+                              message:
+                                  'Please enter valid name. Do not use numeric, special and double space.'
+                          },
+                          minLength: {
+                              value: 1,
+                              message: 'Name must have at least 1 characters'
+                          },
+                          maxLength: {
+                              value: 255,
+                              message: 'Name max length 255 characters'
+                          }
+                      })}
+                        />
                       </div>
                       <div className="form-group">
-                        <label for="exampleInputEmail1">Your email</label>
-                        <input type="email" className="form-control" name="exampleInputEmail1" placeholder="Enter your email address" aria-describedby="emailHelp" required />
+                        <label for="email">Your email</label>
+                        <input type="email" 
+                        className="form-control" 
+                        name="email" 
+                        placeholder="Enter your email address" 
+                        aria-describedby="emailHelp" 
+                        required 
+                        ref={register({
+                          required: {
+                              value: true,
+                              message: 'Please enter your email'
+                          },
+                          pattern: {
+                              value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+                              message: 'Please enter your valid email '
+                          },
+                          minLength: {
+                              value: 2,
+                              message: 'Email must have at least 2 characters '
+                          },
+                          maxLength: {
+                              value: 320,
+                              message: 'Email max length 320 characters '
+                          }
+                      })}
+                        />
                       </div>
                       <div className="form-group">
-                        <label for="exampleFormControlTextarea1">Meeting summary</label>
-                        <textarea className="form-control" name="exampleFormControlTextarea1" placeholder="What are you going to discuss?" rows="6"></textarea>
+                        <label for="summary">Meeting summary</label>
+                        <textarea 
+                        className="form-control" 
+                        name="summary" 
+                        placeholder="What are you going to discuss?" 
+                        rows="6"
+                        ref={register({
+                          required: {
+                              value: true,
+                              message: 'Please answer What are you going to discuss?'
+                          }, 
+                          minLength: {
+                              value: 1,
+                              message: 'Answer must have at least 1 characters'
+                          }
+                      })}
+                        ></textarea>
                       </div>
                       <button type="submit" className="btn btn-primary w-100" >Request a meeting</button>
                     </form>
