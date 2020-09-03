@@ -56,7 +56,7 @@ export const updateAvailability = data => async dispatch => {
  * @returns {function(*): Promise<AxiosResponse<any>>}
  */
 export const checkAvailability = meeter_id => dispatch => {
-    return gpAxios.get(apiPaths.user_management.check_meeter_availibility + meeter_id);
+    return gpAxios.get(apiPaths.user_management.check_meeter_availabiliy + meeter_id);
 };
 
 
@@ -83,4 +83,16 @@ export const meetingRequest = (data, history) => async dispatch => {
     const meeterData = await gpAxios.post(apiPaths.get_meeting_request_url, data);
     dispatch(loadUser());
     return meeterData; 
+};
+
+
+/**
+ *
+ * @param meeter_id
+ * @returns {function(*): Promise<AxiosResponse<any>>}
+ */
+export const getMeetingList = () => async dispatch => {   
+    const meeterList = await gpAxios.get(apiPaths.get_meeting_list);
+    dispatch(loadUser());
+    return meeterList; 
 };
