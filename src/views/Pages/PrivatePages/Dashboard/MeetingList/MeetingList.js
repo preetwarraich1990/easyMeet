@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMeetingList } from '~/redux/boarding/action';
+import { notifyAll } from '~/redux/boarding/action';
 import { useState } from 'react';
 
 function MeetingList() {
@@ -8,7 +9,21 @@ function MeetingList() {
     const dispatch = useDispatch();
     useEffect(() => { 
         dispatch(getMeetingList());
-    }, [])
+    }, []) 
+    const onClickNotifyAll = () => {
+        const data = {
+            "status_category":"multiple",
+            "status_type":"accept"
+        };
+        dispatch(notifyAll(data));
+    };
+    const onClickRejectAll = () => {
+        const data = {
+            "status_category":"multiple",
+            "status_type":"reject"
+        };
+        dispatch(notifyAll(data));
+    };
     return (
         <> 
             <section className="search mt-2">
@@ -27,7 +42,11 @@ function MeetingList() {
                         <div className="col-6 mr-auto bulk-action text-right pr-0">
                             <span className="col-3 align-self-center small-size text-left pr-0">Bulk Actions:</span>
                             <div className="notifyBtnContainer d-inline-block">
-                                <button id="notifyAll" className="btn default-btn small-size bg-white notify ml-3" >
+                                <button 
+                                id="notifyAll" 
+                                className="btn default-btn small-size bg-white notify ml-3"
+                                onClick={onClickNotifyAll}
+                                 >
                                     <i className="fa fa-bell-o mr-1" aria-hidden="true" />
                                 Notify All
                             </button>
@@ -40,8 +59,10 @@ function MeetingList() {
                                     <span id="dismiss" className="text-right small-size blue d-inline-block w-100 mt-1">Dismiss</span>
                                 </span>
                             </div>
-                            <button className="btn default-btn small-size bg-white reject"><i
-                                className="fa fa-times mr-1" aria-hidden="true" />Reject All
+                            <button 
+                            className="btn default-btn small-size bg-white reject"
+                            onClick={onClickRejectAll}
+                            ><i className="fa fa-times mr-1" aria-hidden="true" />Reject All
                         </button>
                         </div>
                     </div>

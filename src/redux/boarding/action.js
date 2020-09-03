@@ -96,3 +96,14 @@ export const getMeetingList = () => async dispatch => {
     dispatch(loadUser());
     return meeterList; 
 };
+
+/**
+ *
+ * @param meeter_id
+ * @returns {function(*): Promise<AxiosResponse<any>>}
+ */
+export const notifyAll = (data) => async dispatch => {   
+    const meeterList = await gpAxios.post(apiPaths.change_meeting_status, data);
+    dispatch(loadUser());
+    return meeterList; 
+};
