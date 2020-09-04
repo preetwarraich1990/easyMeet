@@ -1,0 +1,9 @@
+const meeting = {
+    GET_METER_DATA_INIT: "GET_METER_DATA_INIT",
+    GET_METER_DATA_SUCCESS: "GET_METER_DATA_SUCCESS",
+    GET_METER_DATA_FAILED: "GET_METER_DATA_FAILED",
+
+
+}
+
+export { meeting }

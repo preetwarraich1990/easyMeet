@@ -65,11 +65,10 @@ export const checkAvailability = meeter_id => dispatch => {
  * @param meeter_id
  * @returns {function(*): Promise<AxiosResponse<any>>}
  */
-export const getMeeterData = meeter_slug => async dispatch => { 
-    alert(1);
+export const getMeeterData = meeter_slug => async dispatch => {
     console.log("trest",apiPaths.user_management.get_meeter_from_slug + meeter_slug);
     const meeterData = await gpAxios.get(apiPaths.user_management.get_meeter_from_slug + meeter_slug);
-    dispatch(loadUser());
+
     //return meeterData; 
 };
 
@@ -81,7 +80,6 @@ export const getMeeterData = meeter_slug => async dispatch => {
  */
 export const meetingRequest = (data, history) => async dispatch => {   
     const meeterData = await gpAxios.post(apiPaths.get_meeting_request_url, data);
-    dispatch(loadUser());
     return meeterData; 
 };
 
@@ -93,7 +91,6 @@ export const meetingRequest = (data, history) => async dispatch => {
  */
 export const getMeetingList = () => async dispatch => {   
     const meeterList = await gpAxios.get(apiPaths.get_meeting_list);
-    dispatch(loadUser());
     return meeterList; 
 };
 
@@ -104,6 +101,6 @@ export const getMeetingList = () => async dispatch => {
  */
 export const notifyAll = (data) => async dispatch => {   
     const meeterList = await gpAxios.post(apiPaths.change_meeting_status, data);
-    dispatch(loadUser());
+
     return meeterList; 
 };
