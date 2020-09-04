@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import ThePublicHeader from '~/containers/PublicLayouts/PublicHeader';
-import { meetingRequest } from '~/redux/auth/actions';
+// import { meetingRequest } from '~/redux/auth/actions';
 
 function MeetingLink(props) {
     const dispatch = useDispatch();
