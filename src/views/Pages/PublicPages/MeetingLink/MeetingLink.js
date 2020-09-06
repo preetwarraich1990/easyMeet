@@ -59,7 +59,7 @@ function MeetingLink(props) {
                             <div className='meeterProfileSignUp text-left'>
                                 <div className='MeeterBrandContainer pb-4'>
                                     <a className='navbar-brand m-0 px-0 pt-0 pb-2 d-block' href='index.html'>
-                                        <img src='images/EasyMeetBig.svg' alt='logo' />
+                                        <img src='/assets/images/EasyMeetBig.svg' alt='logo' />
                                     </a>
                                     <span className='Brandtext opacity-8'>Never schedule a meeting again.</span>
                                 </div>

@@ -30,14 +30,6 @@ export const updateUserBio = bio => async dispatch  => {
     return updateBio;
 };
 
-/**
- *
- * @param file
- * @returns {function(*): Promise<AxiosResponse<any>>}
- */
-export const updateProfilePicture = file => dispatch => {
-    return gpAxios.post(apiPaths.user_management.update_profile_pic, file);
-};
 
 /**
  *

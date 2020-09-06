@@ -1,6 +1,7 @@
 import { apiPaths } from '../../utils/apiPaths';
 import { gpAxios } from '../../utils/gpAxios';
-import { meeting } from './types'
+import { meeting } from './types';
+import { loadUser } from '../auth/actions';
 
 /**
  *
@@ -96,4 +97,30 @@ export const getMeetingList = () => async dispatch => {
            type: meeting.GET_MEETING_DATA_FAILED
        })
    } 
+};
+
+/**
+ *
+ * @param file
+ * @returns {function(*): Promise<AxiosResponse<any>>}
+ */
+export const updateProfilePicture = data => async dispatch => { 
+   dispatch({
+        type: [meeting.GET_PROFILE_IMAGE_DATA_INIT]
+   })
+   try {
+    const meetingData = await gpAxios.post(apiPaths.user_management.update_profile_pic, data); 
+        dispatch({
+            type: [meeting.UPLOAD_PROFILE_IMGAE_DATA_SUCESS]
+        }) 
+        dispatch(loadUser()); 
+    } catch (e) {
+        console.log(e);
+        dispatch({
+            type: [meeting.GET_MEETING_DATA_SPINNER_OFF]
+        })
+        dispatch({
+            type: meeting.GET_MEETING_DATA_FAILED
+        })
+    }  
 };

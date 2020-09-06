@@ -1,20 +1,21 @@
-import React, { useEffect, useFetch } from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react'; 
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUserBio } from '~/redux/boarding/action';
 import { Button, Header, Checkbox, Modal } from 'semantic-ui-react';
 import { updateAvailability } from '~/redux/boarding/action';
 import { checkAvailability } from '~/redux/boarding/action';
+import { updateProfilePicture } from '~/redux/meetings/action';
 import Dropzone from 'react-dropzone';
 
 
 function UserInfo() {
     const dispatch = useDispatch();
-    const [openImagePopUp, setOpenImagePopUp] = React.useState(false);
-    const [openBioPopUp, setOpenBioPopUp] = React.useState(false);
-    const [openAvailability, setOpenAvailability] = React.useState(false);
-    const [switchAvailability, setSwitchAvailability] = React.useState(true);
-    const [availabilityDuration, setAvailabilityDuration] = React.useState({ value: '30 minutes' });
+    const [openImagePopUp, setOpenImagePopUp] = useState(false);
+    const [openBioPopUp, setOpenBioPopUp] = useState(false);
+    const [openAvailability, setOpenAvailability] = useState(false);
+    const [switchAvailability, setSwitchAvailability] = useState(true);
+    const [availabilityDuration, setAvailabilityDuration] = useState({ value: '30 minutes' });
+    const [ userProfileImage, setUserProfileImage ] = useState();
     const userInfo = useSelector(state => state.auth.user);
 
 
@@ -75,16 +76,15 @@ function UserInfo() {
     const changeAvailabilityDuration = (value) => {
         setAvailabilityDuration({ value: value });
     };
-    const uploadProfileImage = (image) => {
-        const data = {
-            meeter_id: meeter_data.id,
-            requester_name: formData.full_name,
-            requester_email: formData.email,
-            summary: formData.summary,
-            device_token: 'dasdkfjasdkf'
-        };
-        setOpenImagePopUp(false);
+    const onProfileImageChange = (image) => {
+        setUserProfileImage(image);
     };
+    const uploadProfileImage = () => { 
+        var formData = new FormData();  
+        formData.append('meeter_image', userProfileImage[0], userProfileImage[0].name); 
+        dispatch(updateProfilePicture(formData));
+        setOpenImagePopUp(false);
+    }
     return (
         <>
             <section className="personal-details bg-white pb-4">
@@ -97,13 +97,16 @@ function UserInfo() {
                                     onClose={() => setOpenImagePopUp(false)}
                                     onOpen={() => setOpenImagePopUp(true)}
                                     open={openImagePopUp}
-                                    trigger={<img id="openDrag" className="mb-1" src="../../../../assets/images/photo.png" alt="photo" />}
+                                    trigger={<img id="openDrag" 
+                                    className="mb-1" 
+                                    src= {userInfo.meeter_image_slug === '' ? "/assets/images/photo.png" : userInfo.meeter_image_slug } 
+                                    alt="photo" />}
                                 >
                                     <Modal.Header>Select a Photo</Modal.Header>
                                     <Modal.Content image>
                                         <Modal.Description>
                                             <Header>Upload your photo </Header>
-                                            <Dropzone onDrop={acceptedFiles => uploadProfileImage(acceptedFiles)}>
+                                            <Dropzone multiple={false} onDrop={acceptedFiles => onProfileImageChange(acceptedFiles)}>
                                                 {({ getRootProps, getInputProps }) => (
                                                     <section>
                                                         <div {...getRootProps()}>
@@ -116,14 +119,14 @@ function UserInfo() {
                                         </Modal.Description>
                                     </Modal.Content>
                                     <Modal.Actions>
-                                        <Button className="btn discard p-0 m-0 mr-auto medium-size opacity-6" onClick={() => uploadProfileImage()}>
+                                        <Button className="btn discard p-0 m-0 mr-auto medium-size opacity-6" onClick={() => setOpenImagePopUp(false)}>
                                             Discard
                             </Button>
                                         <Button
                                             content="Update"
                                             className="btn primary-btn ml-auto medium-size updatePhoto"
                                             aria-hidden="true"
-                                            onClick={() => setOpenImagePopUp(false)}
+                                            onClick={() => uploadProfileImage()}
                                             positive
                                         />
                                     </Modal.Actions>

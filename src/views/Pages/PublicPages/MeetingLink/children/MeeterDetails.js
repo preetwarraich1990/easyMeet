@@ -15,7 +15,8 @@ const MeeterDetails = (props) => {
             </div>
             <div className='media personal-details media-body text-center d-block mb-4'>
                 <div className='text-center default-opacity m-auto avatar-container'>
-                    <img src={accessFromObject(data, 'meeter_image')} alt='photo' />
+                    <img src={accessFromObject(data, 'meeter_image_slug') === '' ? "../../../../assets/images/photo.png" : accessFromObject(data, 'meeter_image_slug') } 
+                     alt='photo' />
                 </div>
                 <h2 className='requesterName mt-3 mb-1 mb-0'>
                     {accessFromObject(data, 'meeter_fullname')}

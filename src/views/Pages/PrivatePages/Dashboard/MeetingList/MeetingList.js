@@ -5,8 +5,7 @@ import MeeterList from './children/MeeterList';
 import GPRenderComponent from 'gpcoders-render-component';
 import { Loader } from 'semantic-ui-react';
 
-function MeetingList() {
-    // const [count, setCount] = useState('');
+function MeetingList() { 
     const dispatch = useDispatch();
     useEffect(() => { 
         dispatch(getMeetingList());
