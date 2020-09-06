@@ -54,13 +54,46 @@ export const meetingRequest = (data, history) => async dispatch => {
     return meeterData; 
 };
 
+/**
+ *
+ * @param data
+ * @returns {{payload: *, type: string}}
+ */
+const setMeetingData = (data) => {
+    // console.log(data);
+    return {
+        type: meeting.GET_MEETING_DATA_SUCCESS,
+        payload: data
+    }
+}
+
 
 /**
  *
- * @param meeter_id
+ * @param UserKey 
  * @returns {function(*): Promise<AxiosResponse<any>>}
  */
 export const getMeetingList = () => async dispatch => {   
-    const meeterList = await gpAxios.get(apiPaths.get_meeting_list);
-    return meeterList; 
+    dispatch({
+        type: [meeting.GET_MEETING_DATA_SPINNER_ON]
+   })
+   dispatch({
+        type: [meeting.GET_MEETING_DATA_INIT]
+   })
+   try {
+       const meetingData = await gpAxios.get(`${apiPaths.get_meeting_list}`);
+    //    console.log(meetingData.data.data.result.mettings);
+       dispatch({
+           type: [meeting.GET_MEETING_DATA_SPINNER_OFF]
+       })
+       dispatch(setMeetingData(meetingData.data.data.result))
+   } catch (e) {
+       console.log(e);
+       dispatch({
+           type: [meeting.GET_MEETING_DATA_SPINNER_OFF]
+       })
+       dispatch({
+           type: meeting.GET_MEETING_DATA_FAILED
+       })
+   } 
 };

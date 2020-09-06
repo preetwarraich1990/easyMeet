@@ -47,6 +47,7 @@
     "feather-icons": "^4.28.0",
     "file-loader": "4.3.0",
     "fs-extra": "^8.1.0",
+    "gpcoders-render-component": "^1.0.6",
     "identity-obj-proxy": "3.0.0",
     "jest": "24.9.0",
     "jest-environment-jsdom-fourteen": "1.0.1",

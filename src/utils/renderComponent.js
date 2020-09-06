@@ -19,12 +19,10 @@ const RenderComponent = ({ component: Component, ...rest }) => {
 
 RenderComponent.propTypes = {
     spinner: {
-        type: PropTypes.bool,
-        required: true
+        type: PropTypes.bool 
     },
     data: {
-        type: PropTypes.object,
-        required: true
+        type: PropTypes.object 
     }
 }
 

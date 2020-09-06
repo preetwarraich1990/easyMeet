@@ -15,21 +15,20 @@ const MeeterDetails = (props) => {
             </div>
             <div className='media personal-details media-body text-center d-block mb-4'>
                 <div className='text-center default-opacity m-auto avatar-container'>
-                    <img src='images/photo.png' alt='photo' />
+                    <img src={accessFromObject(data, 'meeter_image')} alt='photo' />
                 </div>
                 <h2 className='requesterName mt-3 mb-1 mb-0'>
-                    {accessFromObject(data, 'id')}
+                    {accessFromObject(data, 'meeter_fullname')}
                 </h2>
                 <a className='edit-bio small-size' href='#'>
-                    Founder of Herjavec Group | Shark on ABC's Shark Tank | Bestselling
-                    Author
+                    {accessFromObject(data, 'meeter_bio')}
                 </a>
                 <span className='small-size d-block opacity-6 mt-1'>
                                                 Has been available <span>4</span> hours ago
                                             </span>
             </div>
             <div className='mb-4'>
-                <span className='requesterMsg'>John Doe</span>{' '}
+                <span className='requesterMsg'>{accessFromObject(data, 'meeter_fullname')}</span>{' '}
                 <span className='requesterMsg opacity-8'>
                                                 wants to meet with you when you're both free.
                                             </span>

@@ -35,7 +35,7 @@ function MeetingLink(props) {
     const handleRegister = formData => {
         const { history } = props;
         const data = {
-            meeter_id: '151',
+            meeter_id: meeter_data.id,
             requester_name: formData.full_name,
             requester_email: formData.email,
             summary: formData.summary,
