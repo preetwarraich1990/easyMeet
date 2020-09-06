@@ -5,6 +5,7 @@ import { updateUserBio } from '~/redux/boarding/action';
 import { Button, Header, Checkbox, Modal } from 'semantic-ui-react';
 import { updateAvailability } from '~/redux/boarding/action';
 import { checkAvailability } from '~/redux/boarding/action';
+import Dropzone from 'react-dropzone';
 
 
 function UserInfo() {
@@ -15,12 +16,12 @@ function UserInfo() {
     const [switchAvailability, setSwitchAvailability] = React.useState(true);
     const [availabilityDuration, setAvailabilityDuration] = React.useState({ value: '30 minutes' });
     const userInfo = useSelector(state => state.auth.user);
-     
- 
-    useEffect(() => { 
-        dispatch(checkAvailability(userInfo.id));  
+
+
+    useEffect(() => {
+        dispatch(checkAvailability(userInfo.id));
     }, [])
- 
+
 
     const [editBio, setEditBio] = useState({ value: userInfo.meeter_bio });
     const openAvailabilityPopup = (value) => {
@@ -74,6 +75,16 @@ function UserInfo() {
     const changeAvailabilityDuration = (value) => {
         setAvailabilityDuration({ value: value });
     };
+    const uploadProfileImage = (image) => {
+        const data = {
+            meeter_id: meeter_data.id,
+            requester_name: formData.full_name,
+            requester_email: formData.email,
+            summary: formData.summary,
+            device_token: 'dasdkfjasdkf'
+        };
+        setOpenImagePopUp(false);
+    };
     return (
         <>
             <section className="personal-details bg-white pb-4">
@@ -92,50 +103,20 @@ function UserInfo() {
                                     <Modal.Content image>
                                         <Modal.Description>
                                             <Header>Upload your photo </Header>
-                                            <div className="left">
-                                                <div className="profile">
-                                                    <div className="photo">
-                                                        <input type="file" accept="image/*" />
-                                                        <div className="photo__helper">
-                                                            <div className="photo__frame photo__frame--circle">
-                                                                <canvas className="photo__canvas"></canvas>
-                                                                <div className="message is-empty">
-                                                                    <i className="fa fa-picture-o d-block opacity-4 mb-1" aria-hidden="true"></i>
-                                                                    <p className="message--desktop medium-size mb-1">Drop your photo here,<span className="blue"> or browse</span></p>
-                                                                    <p className="message--mobile mb-1">Tap here to select your picture.</p>
-                                                                    <p className="small-size opacity-6 mb-1">Supported formats: JPG, PNG, BMP</p>
-                                                                </div>
-                                                                <div className="message is-loading">
-                                                                    <i className="fa fa-2x fa-spin fa-spinner"></i>
-                                                                </div>
-                                                                <div className="message is-dragover">
-                                                                    <i className="fa fa-2x fa-cloud-upload"></i>
-                                                                    <p>Drop your photo</p>
-                                                                </div>
-                                                                <div className="message is-wrong-file-type">
-                                                                    <p>Only images allowed.</p>
-                                                                    <p className="message--desktop">Drop your photo here or browse your computer.</p>
-                                                                    <p className="message--mobile">Tap here to select your picture.</p>
-                                                                </div>
-                                                                <div className="message is-wrong-image-size">
-                                                                    <p>Your photo must be larger than 350px.</p>
-                                                                </div>
-                                                            </div>
+                                            <Dropzone onDrop={acceptedFiles => uploadProfileImage(acceptedFiles)}>
+                                                {({ getRootProps, getInputProps }) => (
+                                                    <section>
+                                                        <div {...getRootProps()}>
+                                                            <input {...getInputProps()} />
+                                                            <p>Drag 'n' drop some files here, or click to select files</p>
                                                         </div>
-                                                        <div className="photo__options hide">
-                                                            <div className="photo__zoom">
-                                                                <input type="range" className="zoom-handler" />
-                                                            </div><a href="#" className="remove opacity-6"><i className="fa fa-trash"></i></a>
-                                                            <div className="updateBtn d-flex pt-3">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                    </section>
+                                                )}
+                                            </Dropzone>
                                         </Modal.Description>
                                     </Modal.Content>
                                     <Modal.Actions>
-                                        <Button className="btn discard p-0 m-0 mr-auto medium-size opacity-6" onClick={() => setOpenImagePopUp(false)}>
+                                        <Button className="btn discard p-0 m-0 mr-auto medium-size opacity-6" onClick={() => uploadProfileImage()}>
                                             Discard
                             </Button>
                                         <Button

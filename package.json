@@ -70,6 +70,7 @@
     "react-copy-to-clipboard": "^5.0.2",
     "react-dev-utils": "^10.2.1",
     "react-dom": "^16.13.1",
+    "react-dropzone": "^11.0.3",
     "react-feather": "^2.0.8",
     "react-files": "^2.4.8",
     "react-hook-form": "^6.0.7",
