@@ -16,7 +16,8 @@ const initState = {
  */
 export const setSpinner = (state, payload) => ({
     ...state,
-    meeter_spinner: payload
+    meeter_spinner: payload,
+    meeter_spinner: true
 });
 
 /**

@@ -25,6 +25,7 @@ export const getMeeterData = meeter_slug => async dispatch => {
     })
     try {
         const meeterData = await gpAxios.get(`${apiPaths.user_management.get_meeter_from_slug}${meeter_slug}`);
+        console.log(meeterData);
         dispatch(setMeeterData(meeterData.data.data.result))
     } catch (e) {
         dispatch({
