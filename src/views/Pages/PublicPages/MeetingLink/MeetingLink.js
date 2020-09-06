@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
@@ -6,21 +6,20 @@ import { useDispatch } from 'react-redux';
 import ThePublicHeader from '~/containers/PublicLayouts/PublicHeader';
 import { getMeeterData, meetingRequest } from '../../../../redux/meetings/action';
 
+import RenderComponent from '../../../../utils/renderComponent';
+import MeeterDetails from './children/MeeterDetails';
+
 function MeetingLink(props) {
     const dispatch = useDispatch();
     const {
         match: { params }
     } = props;
-
+    const meeting = useSelector(state => state.meeting);
+    const { meeter_spinner, meeter_data } = meeting;
     useEffect(() => {
         dispatch(getMeeterData(params.slug));
         return {};
     }, []);
-
-
-    const meeting = useSelector(state => state.meeting);
-
-
 
     /**
      * @params { register, handleSubmit }
@@ -52,60 +51,9 @@ function MeetingLink(props) {
                 <div className='container'>
                     <div className='row'>
                         <div className='col-6 pl-0'>
-                            {meeting.meeter_spinner ? <p></p> : (
-
-                                <div className='personal-details py-5 boxShadowNon'>
-                                    <div className='notifyPar w-100 py-3 small-size mt-3'>
-                                        Enabling browser notifications for EasyMeet is mandatory to be able to use the app.
-    <a className='d-inline-block w-100 mt-2' href='#'>
-                                            How to enable
-    </a>
-                                    </div>
-                                    <div className='media personal-details media-body text-center d-block mb-4'>
-                                        <div className='text-center default-opacity m-auto avatar-container'>
-                                            <img src='images/photo.png' alt='photo' />
-                                        </div>
-                                        <h2 className='requesterName mt-3 mb-1 mb-0'>John Doe</h2>
-                                        <a className='edit-bio small-size' href='#'>
-                                            Founder of Herjavec Group | Shark on ABC's Shark Tank | Bestselling Author
-    </a>
-                                        <span className='small-size d-block opacity-6 mt-1'>
-                                            Has been available <span>4</span> hours ago
-    </span>
-                                    </div>
-                                    <div className='mb-4'>
-                                        <span className='requesterMsg'>John Doe</span>{' '}
-                                        <span className='requesterMsg opacity-8'>
-                                            wants to meet with you when you're both free.
-    </span>
-                                    </div>
-                                    <div>
-                                        <p className='small-size opacity-6 mb-0'>
-                                            Simply fill the information required and you'll get notified whenever John Doe
-        is free to <br />
-        take a meeting.
-    </p>
-                                        <br />
-                                        <p className='small-size opacity-6'>
-                                            If you're also free at that time, you can connect with 1-click, otherwise you
-        just try again <br />
-        later. It's that simple.
-    </p>
-                                        <div className='MeeterProfileArrow'>&#187;</div>
-                                    </div>
-                                    <div className='meeterProfileMsg px-2 py-3'>
-                                        <h2 className='opacity-8'>Use EasyMeet to host meetings yourself!</h2>
-                                        <span className='opacity-6'>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-    </span>
-                                        <Link to={`/sign-up`}>
-                                            <button type='button' className='btn btn-primary medium-size'>
-                                                Sign up as a host
-        </button>
-                                        </Link>
-                                    </div>
-                                </div>
-                            )}
+                            <div className='personal-details py-5 boxShadowNon'>
+                                <RenderComponent component={MeeterDetails} spinner={meeter_spinner} data={meeter_data} />
+                            </div>
                         </div>
                         <div className='col-6 bg-white'>
                             <div className='meeterProfileSignUp text-left'>

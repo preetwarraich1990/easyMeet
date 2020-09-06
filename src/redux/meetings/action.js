@@ -21,13 +21,21 @@ const setMeeterData = (data) => {
  */
 export const getMeeterData = meeter_slug => async dispatch => {
     dispatch({
-         type: meeting.GET_METER_DATA_INIT
+         type: [meeting.GET_METER_DATA_SPINNER_ON]
+    })
+    dispatch({
+         type: [meeting.GET_METER_DATA_INIT]
     })
     try {
         const meeterData = await gpAxios.get(`${apiPaths.user_management.get_meeter_from_slug}${meeter_slug}`);
-        console.log(meeterData);
+        dispatch({
+            type: [meeting.GET_METER_DATA_SPINNER_OFF]
+        })
         dispatch(setMeeterData(meeterData.data.data.result))
     } catch (e) {
+        dispatch({
+            type: [meeting.GET_METER_DATA_SPINNER_OFF]
+        })
         dispatch({
             type: meeting.GET_METER_DATA_FAILED
         })

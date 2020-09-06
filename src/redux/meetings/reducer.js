@@ -2,11 +2,10 @@ import { createReducer } from '../../utils/reducerUtil';
 import { meeting } from './types';
 
 const initState = {
-    meeter_spinner: false,
+    meeter_spinner: true,
     meeter_data: null,
     meeter_error: null
 };
-
 
 /**
  * @setSpinner
@@ -14,10 +13,20 @@ const initState = {
  * @param payload
  * @returns {{spinner: boolean}}
  */
-export const setSpinner = (state, payload) => ({
+export const setSpinnerOn = (state, payload) => ({
     ...state,
-    meeter_spinner: payload,
     meeter_spinner: true
+});
+
+/**
+ * @setSpinner
+ * @param state
+ * @param payload
+ * @returns {{spinner: boolean}}
+ */
+export const setSpinnerOff = (state, payload) => ({
+    ...state,
+    meeter_spinner: false
 });
 
 /**
@@ -28,8 +37,7 @@ export const setSpinner = (state, payload) => ({
  */
 export const setMeeterData = (state, payload) => ({
     ...state,
-    meeter_data: payload,
-    meeter_spinner: false
+    meeter_data: payload
 });
 
 /**
@@ -40,12 +48,12 @@ export const setMeeterData = (state, payload) => ({
  */
 export const setMeeterFailed = (state, payload) => ({
     ...state,
-    meeter_spinner: false,
     meeter_error: payload
 });
 
 export default createReducer(initState, {
-    [meeting.GET_METER_DATA_INIT]: setSpinner,
+    [meeting.GET_METER_DATA_SPINNER_ON]: setSpinnerOn,
+    [meeting.GET_METER_DATA_SPINNER_OFF]: setSpinnerOff,
     [meeting.GET_METER_DATA_SUCCESS]: setMeeterData,
     [meeting.GET_METER_DATA_FAILED]: setMeeterFailed,
 });
