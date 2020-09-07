@@ -1,6 +1,6 @@
 import React  from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Loader, Dimmer } from 'semantic-ui-react';
+
 import { useForm } from 'react-hook-form';
 
 import { loginUser } from '~/redux/auth/actions';
@@ -89,7 +89,7 @@ const Login = props => {
                                 <button type='submit' className='btn btn-primary w-100'>
                                     Sign In
                                 </button>
-                                <Dimmer active={loading} inverted><Loader active={loading} className={'lcolor'}/></Dimmer>
+                                {/*<Dimmer active={loading} inverted><Loader active={loading} className={'lcolor'}/></Dimmer>*/}
                             </form>
                             <div className='text-center'>
                                 <a href='#' className='text-dark'>

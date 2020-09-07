@@ -1,13 +1,10 @@
 import React from 'react'
-import { Dimmer, Loader, Image, Segment } from 'semantic-ui-react';
+import Spinner from 'react-bootstrap/Spinner'
 
 export const CustomLoader = () => {
     return (
-        <div>
-            <Dimmer active inverted>
-                <Loader size='medium'>Loading</Loader>
-            </Dimmer>
-
-        </div>
+        <Spinner animation='border' role='status'>
+            <span className='sr-only'>Loading...</span>
+        </Spinner>
     );
 };

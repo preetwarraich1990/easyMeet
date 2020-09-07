@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { Loader, Dimmer } from 'semantic-ui-react';
+
 
 import { signUpRequest } from '~/redux/auth/actions';
 import { ThePublicHeader } from '~/containers/index';
@@ -163,7 +163,7 @@ const SignUp = props => {
                                     Continue
 
                                 </button>
-                                <Dimmer active={loading} inverted><Loader active={loading} className={'lcolor'}/></Dimmer>
+
 
                             </form>
 

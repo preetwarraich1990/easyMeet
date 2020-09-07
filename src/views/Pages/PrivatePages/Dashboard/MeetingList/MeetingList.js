@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getMeetingList } from '~/redux/meetings/action';  
 import MeeterList from './children/MeeterList';
 import GPRenderComponent from 'gpcoders-render-component';
-import { Loader } from 'semantic-ui-react';
+import { CustomLoader } from '../../../../../utils/Loader';
+
 
 function MeetingList() { 
     const dispatch = useDispatch();
@@ -19,7 +20,7 @@ function MeetingList() {
     return (
         <>  
 
-           <GPRenderComponent component={MeeterList} spinner={meeting_spinner} data={meeting_list} customSpinner={<Loader active />} /> 
+           <GPRenderComponent component={MeeterList} spinner={meeting_spinner} data={meeting_list} customSpinner={<CustomLoader active />} />
         </>
 
     );
