@@ -16,15 +16,17 @@ function UserInfo() {
     const [switchAvailability, setSwitchAvailability] = useState(true);
     const [availabilityDuration, setAvailabilityDuration] = useState({ value: '30 minutes' });
     const [ userProfileImage, setUserProfileImage ] = useState();
+    const [editBio, setEditBio] = useState({value: ''});
     const userInfo = useSelector(state => state.auth.user);
 
 
     useEffect(() => {
         dispatch(checkAvailability(userInfo.id));
+        setEditBio({ value: userInfo.meeter_bio });
     }, [])
 
-
-    const [editBio, setEditBio] = useState({ value: userInfo.meeter_bio });
+    if(userInfo !== null){
+    }
     const openAvailabilityPopup = (value) => {
         if (value == false) {
             setOpenAvailability(true);
