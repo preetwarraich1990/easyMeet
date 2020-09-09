@@ -18,6 +18,7 @@ function UserInfo() {
   });
   const [userProfileImage, setUserProfileImage] = useState();
   const [editBio, setEditBio] = useState({ value: '' });
+  const [previewImage, setPreviewImage] = useState(null);
   const userInfo = useSelector((state) => state.auth.user);
 
   useEffect(() => {
@@ -73,7 +74,8 @@ function UserInfo() {
   const changeAvailabilityDuration = (value) => {
     setAvailabilityDuration({ value: value });
   };
-  const onProfileImageChange = (image) => {
+  const onProfileImageChange = (image) => { 
+    setPreviewImage(URL.createObjectURL(image[0])); 
     setUserProfileImage(image);
   };
   const uploadProfileImage = () => {
@@ -110,48 +112,47 @@ function UserInfo() {
                   onHide={() => setOpenImagePopUp(false)}
                   dialogClassName='modal-dialog-centered profile-photo-dialog'
                 >
-                  <div class='modal-header'>
-                    <h5 class='modal-title small-size align-self-center'>
+                  <div className='modal-header'>
+                    <h5 className='modal-title small-size align-self-center'>
                       Upload your photo
                     </h5>
                     <button
                       type='button'
-                      class='close'
+                      className='close'
                       onClick={() => setOpenImagePopUp(false)}
                     >
                       <span aria-hidden='true'>&times;</span>
                     </button>
                   </div>
-                  <div class='MeeterLine mx-0'></div>
+                  <div className='MeeterLine mx-0'></div>
 
                   <div image className='modal-body pb-0'>
                     <div className='profile'>
+                    <img style={{width:'80px', height:'80px'}} className={previewImage != null ? 'block' : 'none'} src={previewImage}/>
                       <Dropzone
                         multiple={false}
                         onDrop={(acceptedFiles) =>
                           onProfileImageChange(acceptedFiles)
                         }
                       >
-                        {({ getRootProps, getInputProps }) => {
-                          console.log(getRootProps);
-                          console.log(getInputProps);
+                        {({ getRootProps, getInputProps }) => { 
                           return (
                             <section className='photo is-desktop  photo--empty'>
                               <div {...getRootProps()} className='photo__frame'>
                                 <input {...getInputProps()} />
-                                <div class='message is-empty'>
+                                <div className='message is-empty'>
                                   <i
-                                    class='fa fa-picture-o d-block opacity-4 mb-1'
+                                    className='fa fa-picture-o d-block opacity-4 mb-1'
                                     aria-hidden='true'
                                   ></i>
-                                  <p class='message--desktop medium-size mb-1'>
+                                  <p className='message--desktop medium-size mb-1'>
                                     Drop your photo here,
-                                    <span class='blue'> or browse</span>
+                                    <span className='blue'> or browse</span>
                                   </p>
-                                  <p class='message--mobile mb-1'>
+                                  <p className='message--mobile mb-1'>
                                     Tap here to select your picture.
                                   </p>
-                                  <p class='small-size opacity-6 mb-1'>
+                                  <p className='small-size opacity-6 mb-1'>
                                     Supported formats: JPG, PNG, BMP
                                   </p>
                                 </div>
@@ -203,19 +204,19 @@ function UserInfo() {
                   onHide={() => setOpenBioPopUp(false)}
                   dialogClassName='modal-dialog-centered'
                 >
-                  <div class='modal-header'>
-                    <h5 class='modal-title small-size align-self-center'>
+                  <div className='modal-header'>
+                    <h5 className='modal-title small-size align-self-center'>
                       Update your bio
                     </h5>
                     <button
                       type='button'
-                      class='close'
+                      className='close'
                       onClick={() => setOpenBioPopUp(false)}
                     >
                       <span aria-hidden='true'>&times;</span>
                     </button>
                   </div>
-                  <div class='MeeterLine mx-0'></div>
+                  <div className='MeeterLine mx-0'></div>
 
                   <div className='modal-body pb-0'>
                     <div>
@@ -270,13 +271,13 @@ function UserInfo() {
                   onHide={() => setOpenAvailability(false)}
                   dialogClassName='modal-dialog-centered'
                 >
-                  <div class='modal-header'>
-                    <h5 class='modal-title small-size align-self-center'>
+                  <div className='modal-header'>
+                    <h5 className='modal-title small-size align-self-center'>
                       Changing your Availability
                     </h5>
                     <button
                       type='button'
-                      class='close'
+                      className='close'
                       onClick={() => setOpenAvailability(false)}
                     >
                       <span aria-hidden='true'>×</span>
@@ -446,7 +447,7 @@ function UserInfo() {
                             </label>
                           </div>
                         </div>
-                        <div class='MeeterLine'></div>
+                        <div className='MeeterLine'></div>
                       </div>
                     )}
                   </div>

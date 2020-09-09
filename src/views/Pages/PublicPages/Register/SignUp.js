@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 
 import { signUpRequest } from '~/redux/auth/actions';
 import { ThePublicHeader } from '~/containers/index';
@@ -20,6 +21,7 @@ const SignUp = props => {
     const { loading, isAuthenticated } = auth
 
     const [passwordVisible, setPasswordVisible] = useState('password');
+    const [phoneNumber, setPhoneNumber] = useState('');
 
     if (isAuthenticated) {
         return <Redirect to='/onBoarding-one'/>;
@@ -43,9 +45,11 @@ const SignUp = props => {
             meeter_fullname: formData.full_name,
             meeter_email: formData.email,
             meeter_password: formData.password,
+            meeter_phone: `+${phoneNumber}`,
             device_token: 'dasdkfjasdkf'
+            
         };
-
+        // console.log(data);
         dispatch(signUpRequest(data, history));
     };
 
@@ -120,6 +124,21 @@ const SignUp = props => {
                                             }
                                         })}
                                     />
+                                    {errors.full_name &&
+                                    <p className='customErrors text-danger mt-2'>{errors.full_name.message}</p>}
+                                </div>
+                                
+                                <div className='form-group'>
+                                    <label htmlFor='meeter_phone'>Phone</label>
+                                    <PhoneInput 
+                                    inputProps={{
+                                        name: 'phone' 
+                                      }}
+                                    className='form-control'
+                                    country={'us'} 
+                                    ref={register()}
+                                    onChange={phone => setPhoneNumber(phone)}
+                                    /> 
                                     {errors.full_name &&
                                     <p className='customErrors text-danger mt-2'>{errors.full_name.message}</p>}
                                 </div>

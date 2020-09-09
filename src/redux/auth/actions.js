@@ -45,7 +45,7 @@ export const loginUser = (email, password, history = null) => async dispatch => 
             type: LOGIN_SUCCESS,
             payload: response.data.data.result.auth_user_token
         })
-        dispatch(loadUser());
+        dispatch(loadUserPostAuthentication(response.data.data.result.auth_user_token));
     } catch (error) {
         dispatch(authSpinner(false));
         dispatch({
@@ -68,7 +68,7 @@ export const signUpRequest = (data, history) => dispatch => {
                     type: REGISTER_SUCCESS,
                     payload: response.data.data.result.auth_user_token
                 });
-                dispatch(loadUser());
+                dispatch(loadUserPostAuthentication(response.data.data.result.auth_user_token));
                 history.push('/onboarding-one');
             }
         })
@@ -83,7 +83,7 @@ export const signUpRequest = (data, history) => dispatch => {
  * @param token
  * @returns {function(...[*]=)}
  */
-export const loadUser = () => async dispatch => {
+export const loadUser = (token = null) => async dispatch => {
 
     try {
         const res = await gpAxios.get('/meeter/me');
@@ -107,3 +107,32 @@ export const logout = () => async dispatch => {
         type: LOGOUT
     });
 };
+
+/**
+ *
+ * @param token
+ * @returns {function(...[*]=)}
+ */
+export const loadUserPostAuthentication = (token = null) => async dispatch => {
+
+    try {
+        const res = await gpAxios.get('/meeter/me', {
+            headers: {
+                "User-key" : token
+            }
+        });
+        dispatch({
+            type: USER_LOADED,
+            payload: {
+                user: res.data.data.result,
+            }
+        });
+        dispatch(authSpinner(false));
+    } catch (e) {
+
+        dispatch({
+            type: AUTH_ERROR
+        });
+    }
+};
+ 
