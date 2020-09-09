@@ -44,7 +44,7 @@ export const loginUser = (email, password, history = null) => async dispatch => 
         dispatch({
             type: LOGIN_SUCCESS,
             payload: response.data.data.result.auth_user_token
-        })
+        });
         dispatch(loadUserPostAuthentication(response.data.data.result.auth_user_token));
     } catch (error) {
         dispatch(authSpinner(false));
@@ -84,18 +84,16 @@ export const signUpRequest = (data, history) => dispatch => {
  * @returns {function(...[*]=)}
  */
 export const loadUser = (token = null) => async dispatch => {
-
     try {
         const res = await gpAxios.get('/meeter/me');
         dispatch({
             type: USER_LOADED,
             payload: {
-                user: res.data.data.result,
+                user: res.data.data.result
             }
         });
         dispatch(authSpinner(false));
     } catch (e) {
-
         dispatch({
             type: AUTH_ERROR
         });
@@ -114,25 +112,23 @@ export const logout = () => async dispatch => {
  * @returns {function(...[*]=)}
  */
 export const loadUserPostAuthentication = (token = null) => async dispatch => {
-
     try {
         const res = await gpAxios.get('/meeter/me', {
             headers: {
-                "User-key" : token
+                'User-key': token
             }
         });
         dispatch({
             type: USER_LOADED,
             payload: {
-                user: res.data.data.result,
+                user: res.data.data.result
             }
         });
         dispatch(authSpinner(false));
+        window.location.reload();
     } catch (e) {
-
         dispatch({
             type: AUTH_ERROR
         });
     }
 };
- 
