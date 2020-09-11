@@ -6,6 +6,8 @@ import { updateAvailability } from '~/redux/boarding/action';
 import { checkAvailability } from '~/redux/boarding/action';
 import { updateProfilePicture } from '~/redux/meetings/action';
 import Dropzone from 'react-dropzone';
+import Cropper from 'react-cropper';
+import 'cropperjs/dist/cropper.css';
 
 function UserInfo() {
     const dispatch = useDispatch();
@@ -17,6 +19,7 @@ function UserInfo() {
         value: '30 minutes'
     });
     const [userProfileImage, setUserProfileImage] = useState();
+    const [userProfileImageName, setUserProfileImageName] = useState();
     const [editBio, setEditBio] = useState({ value: '' });
     const [previewImage, setPreviewImage] = useState(null);
     const userInfo = useSelector(state => state.auth.user);
@@ -78,14 +81,45 @@ function UserInfo() {
         setAvailabilityDuration({ value: value });
     };
     const onProfileImageChange = image => {
+        console.log(image);
+        // e.preventDefault();
+        let files;
+        files = image;
+        const reader = new FileReader();
+        reader.onload = () => {
+            setImage(reader.result);
+        };
+        reader.readAsDataURL(files[0]);
         setPreviewImage(URL.createObjectURL(image[0]));
-        setUserProfileImage(image);
+        setUserProfileImage(image[0]);
+        setUserProfileImageName(image[0].name);
     };
     const uploadProfileImage = () => {
         var formData = new FormData();
-        formData.append('meeter_image', userProfileImage[0], userProfileImage[0].name);
+        formData.append('meeter_image', userProfileImage, userProfileImageName);
         dispatch(updateProfilePicture(formData));
         setOpenImagePopUp(false);
+        setCropData('#');
+        setCropper();
+        
+    }; 
+    const [image, setImage] = useState();
+    const [cropData, setCropData] = useState("#");
+    const [cropper, setCropper] = useState(); 
+
+    const getCropData = () => {
+        if (typeof cropper !== "undefined") {
+            setCropData(cropper.getCroppedCanvas().toDataURL());
+            const finalImage = cropper.getCroppedCanvas().toBlob(blob => {
+                if (!blob) {
+                  console.error('Canvas is empty');
+                  return;
+                } else{
+                    setUserProfileImage(blob);
+                }
+            }, 'image/jpeg'); 
+
+        }
     };
 
     return (
@@ -119,18 +153,60 @@ function UserInfo() {
                                             <span aria-hidden='true'>&times;</span>
                                         </button>
                                     </div>
-                                    <div className='MeeterLine mx-0'></div>
-
-                                    <div image className='modal-body pb-0'>
-                                        <div className='profile'>
-                                            <img
+                                    <div className={previewImage != null ? 'd-block' : 'd-none'}  >
+                                        <div style={{ width: "100%" }}>
+                                            <Cropper
+                                                style={{ height: 400, width: "100%" }}
+                                                initialAspectRatio={1} 
+                                                src={image}
+                                                viewMode={1}
+                                                guides={true}
+                                                minCropBoxHeight={10}
+                                                minCropBoxWidth={10}
+                                                background={false}
+                                                responsive={true}
+                                                autoCropArea={1}
+                                                checkOrientation={false} // https://github.com/fengyuanchen/cropperjs/issues/671
+                                                onInitialized={(instance) => {
+                                                    setCropper(instance);
+                                                }}
+                                            />
+                                        </div> 
+                                            <div
+                                                className="box"
+                                                style={{ width: "50%", height: "300px" }}
+                                            >
+                                                <h1> 
+                                                    <button className='btn primary-btn ml-auto medium-size updatePhoto'  style={{ float: "right" }} onClick={getCropData}>
+                                                        Crop Image
+                                                </button>
+                                                </h1>
+                                                <img style={{ width: "100%" }} className={cropData != '#' ? 'd-block' : 'd-none'} src={cropData} alt="cropped" />
+                                            </div> 
+                                        <br style={{ clear: "both" }} />
+                                    </div>
+                                    {/* <img
                                                 style={{ width: '80px', height: '80px' }}
                                                 className={previewImage != null ? 'block' : 'none'}
                                                 src={previewImage}
                                             />
+                                            <Cropper
+                                                src={previewImage}
+                                                style={{height: 400, width: '100%'}}
+                                                // Cropper.js options
+                                                initialAspectRatio={16 / 9}
+                                                guides={false}
+                                                crop={bindImage(this)}
+                                                onInitialized={onCropperInit(this)}
+                                            /> */}
+                                    <div className='MeeterLine mx-0'></div>
+
+                                    <div image className='modal-body pb-0'>
+                                        <div className='profile'>
                                             <Dropzone
                                                 multiple={false}
-                                                onDrop={acceptedFiles => onProfileImageChange(acceptedFiles)}>
+                                                onDrop={acceptedFiles => onProfileImageChange(acceptedFiles)}
+                                            >
                                                 {({ getRootProps, getInputProps }) => {
                                                     return (
                                                         <section className='photo is-desktop  photo--empty'>
@@ -430,8 +506,8 @@ function UserInfo() {
                                         <a href='#'>Extend ⯆</a>
                                     </>
                                 ) : (
-                                    'Not Available'
-                                )}
+                                        'Not Available'
+                                    )}
                             </span>
                         </div>
                     </div>
