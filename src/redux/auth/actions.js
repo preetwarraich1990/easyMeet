@@ -68,8 +68,7 @@ export const signUpRequest = (data, history) => dispatch => {
                     type: REGISTER_SUCCESS,
                     payload: response.data.data.result.auth_user_token
                 });
-                dispatch(loadUserPostAuthentication(response.data.data.result.auth_user_token));
-                history.push('/onboarding-one');
+                dispatch(loadUserPostAuthentication(response.data.data.result.auth_user_token, history));
             }
         })
         .catch(e => {
@@ -113,7 +112,7 @@ export const logout = () => async dispatch => {
  * @param token
  * @returns {function(...[*]=)}
  */
-export const loadUserPostAuthentication = (token = null) => async dispatch => {
+export const loadUserPostAuthentication = (token = null, history) => async dispatch => {
 
     try {
         const res = await gpAxios.get('/meeter/me', {
@@ -128,6 +127,7 @@ export const loadUserPostAuthentication = (token = null) => async dispatch => {
             }
         });
         dispatch(authSpinner(false));
+        history.push('/onboarding-one');
     } catch (e) {
 
         dispatch({
