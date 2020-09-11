@@ -110,31 +110,24 @@ export const logout = () => async dispatch => {
  * @param token
  * @returns {function(...[*]=)}
  */
-<<<<<<< HEAD
 export const loadUserPostAuthentication = (token = null, history) => async dispatch => {
 
-=======
-export const loadUserPostAuthentication = (token = null) => async dispatch => {
->>>>>>> afdab9778b5b99f0a7b7e140cf341dcd72d3cb8a
     try {
         const res = await gpAxios.get('/meeter/me', {
             headers: {
-                'User-key': token
+                "User-key" : token
             }
         });
         dispatch({
             type: USER_LOADED,
             payload: {
-                user: res.data.data.result
+                user: res.data.data.result,
             }
         });
         dispatch(authSpinner(false));
-<<<<<<< HEAD
         history.push('/onboarding-one');
-=======
-        window.location.reload();
->>>>>>> afdab9778b5b99f0a7b7e140cf341dcd72d3cb8a
     } catch (e) {
+
         dispatch({
             type: AUTH_ERROR
         });
