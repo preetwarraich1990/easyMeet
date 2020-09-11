@@ -4,15 +4,12 @@ const userToken = localStorage.getItem('token');
 export const base_url = process.env.API_HOST;
 
 let withoutToken = {
-    Authorization: `Basic ${process.env.REACT_APP_TOKEN}`,
+    Authorization: `Basic ${process.env.REACT_APP_TOKEN}`
+};
+
+if (userToken !== null) {
+    withoutToken = { ...withoutToken, 'User-key': userToken };
 }
-
-if(userToken !== null) {
-    withoutToken = {...withoutToken, "User-key": userToken}
-}
-
-console.log('token: ', userToken)
-
 
 export const gpAxios = axios.create({
     baseURL: base_url,
@@ -25,7 +22,6 @@ export const gpAxios = axios.create({
  */
 export const setUserToken = token => {
     if (token) {
-        // gpAxios.defaults.headers.common['User-Key'] = token;
         gpAxios.defaults.headers.common['Authorization'] = `Basic ${process.env.REACT_APP_TOKEN}`;
     } else {
         delete gpAxios.defaults.headers.common['User-Key'];

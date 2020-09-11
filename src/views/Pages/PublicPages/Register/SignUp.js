@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
@@ -18,13 +18,13 @@ const SignUp = props => {
 
     const dispatch = useDispatch();
     const auth = useSelector(state => state.auth);
-    const { loading, isAuthenticated } = auth
+    const { loading, isAuthenticated } = auth;
 
     const [passwordVisible, setPasswordVisible] = useState('password');
     const [phoneNumber, setPhoneNumber] = useState('');
 
     if (isAuthenticated) {
-        return <Redirect to='/onBoarding-one'/>;
+        return <Redirect to='/onBoarding-one' />;
     }
 
     /*
@@ -47,7 +47,6 @@ const SignUp = props => {
             meeter_password: formData.password,
             meeter_phone: `+${phoneNumber}`,
             device_token: 'dasdkfjasdkf'
-            
         };
         // console.log(data);
         dispatch(signUpRequest(data, history));
@@ -55,7 +54,7 @@ const SignUp = props => {
 
     return (
         <>
-            <ThePublicHeader/>
+            <ThePublicHeader />
             <section className='free-sign-up mt-5'>
                 <div className='container'>
                     <div className='row justify-content-center'>
@@ -93,8 +92,9 @@ const SignUp = props => {
                                             }
                                         })}
                                     />
-                                    {errors.email &&
-                                    <p className='customErrors text-danger mt-2'>{errors.email.message}</p>}
+                                    {errors.email && (
+                                        <p className='customErrors text-danger mt-2'>{errors.email.message}</p>
+                                    )}
                                 </div>
                                 <div className='form-group'>
                                     <label htmlFor='exampleInputName'>Full name</label>
@@ -124,23 +124,39 @@ const SignUp = props => {
                                             }
                                         })}
                                     />
-                                    {errors.full_name &&
-                                    <p className='customErrors text-danger mt-2'>{errors.full_name.message}</p>}
+                                    {errors.full_name && (
+                                        <p className='customErrors text-danger mt-2'>{errors.full_name.message}</p>
+                                    )}
                                 </div>
-                                
+
                                 <div className='form-group'>
                                     <label htmlFor='meeter_phone'>Phone</label>
-                                    <PhoneInput 
-                                    inputProps={{
-                                        name: 'phone' 
-                                      }}
-                                    className='form-control'
-                                    country={'us'} 
-                                    ref={register()}
-                                    onChange={phone => setPhoneNumber(phone)}
-                                    /> 
-                                    {errors.full_name &&
-                                    <p className='customErrors text-danger mt-2'>{errors.full_name.message}</p>}
+                                    <PhoneInput
+                                        inputProps={{
+                                            name: 'phone'
+                                        }}
+                                        inputStyle={{
+                                            display: 'block',
+                                            width: '100%',
+                                            lineHeight: 1.5,
+                                            color: '#495057',
+                                            backgroundColor: '#fff',
+                                            backgroundClip: 'padding-box',
+                                            border: '1px solid #ced4da',
+                                            borderRadius: '.25rem',
+                                            padding: '0.7rem 0.75rem',
+                                            borderColor: '#eeeeee',
+                                            fontSize: '0.86rem',
+                                            minHeight: '41px',
+                                            paddingLeft: '50px'
+                                        }}
+                                        country={'us'}
+                                        ref={register()}
+                                        onChange={phone => setPhoneNumber(phone)}
+                                    />
+                                    {errors.full_name && (
+                                        <p className='customErrors text-danger mt-2'>{errors.full_name.message}</p>
+                                    )}
                                 </div>
                                 <div className='form-group password-input'>
                                     <label htmlFor='exampleInputPassword1'>Password</label>
@@ -153,7 +169,6 @@ const SignUp = props => {
                                         name='password'
                                         type={passwordVisible}
                                         ref={register({
-
                                             required: {
                                                 value: true,
                                                 message: 'You must specify a password'
@@ -172,23 +187,21 @@ const SignUp = props => {
                                     <span
                                         toggle='#input-pwd'
                                         onClick={togglePasswordVisibility}
-                                        className={passwordVisible === 'password' ? 'fa fa-eye-slash' : 'fa fa-eye'}
-                                    ></span>
-                                    {errors.password &&
-                                    <p className='customErrors text-danger mt-2'>{errors.password.message}</p>}
+                                        className={
+                                            passwordVisible === 'password' ? 'fa fa-eye-slash' : 'fa fa-eye'
+                                        }></span>
+                                    {errors.password && (
+                                        <p className='customErrors text-danger mt-2'>{errors.password.message}</p>
+                                    )}
                                 </div>
 
                                 <button type='submit' className='btn btn-primary w-100'>
                                     Continue
-
                                 </button>
-
-
                             </form>
 
-
                             <span className='have-account'>
-                                I already have the account. <a href='#'>Log in</a>
+                                I already have the account. <Link to={'/login'}>Log in</Link>
                             </span>
                         </div>
                     </div>
