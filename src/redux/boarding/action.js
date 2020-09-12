@@ -15,7 +15,7 @@ export const checkSlugAvailability = slug => dispatch => {
  * @param slug
  * @returns {function(*): Promise<AxiosResponse<any>>}
  */
-export const updateSlug = slug => dispatch => {
+export const updateSlug = slug => dispatch => { 
     return gpAxios.put(apiPaths.meeter_slug_update, slug);
 };
 

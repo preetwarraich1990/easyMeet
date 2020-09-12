@@ -35,14 +35,15 @@ function UserInfo() {
     if (userInfo !== null) {
     }
     const openAvailabilityPopup = value => {
+        console.log(value);
         if (value == false) {
-            setOpenAvailability(true);
-        } else {
             setOpenAvailability(false);
             const data = {
                 meeter_availibility: 'no'
             };
             dispatch(updateAvailability(data));
+        } else {
+            setOpenAvailability(true);
         }
     };
     const changeAvailability = () => {
@@ -71,10 +72,11 @@ function UserInfo() {
         setEditBio({ value: event.target.value });
     };
     const switchAvailabitly = e => {
+        console.log(e);
         if (e == false) {
-            setSwitchAvailability(true);
-        } else {
             setSwitchAvailability(false);
+        } else {
+            setSwitchAvailability(true);
         }
     };
     const changeAvailabilityDuration = value => {
@@ -366,7 +368,7 @@ function UserInfo() {
                                                             onChange={e => changeAvailabilityDuration(e.target.value)}
                                                         />
                                                         <label
-                                                            for='radio-1'
+                                                            htmlFor='radio-1'
                                                             className='radio-label small-size opacity-8'>
                                                             10 minutes
                                                         </label>
@@ -380,7 +382,7 @@ function UserInfo() {
                                                             onChange={e => changeAvailabilityDuration(e.target.value)}
                                                         />
                                                         <label
-                                                            for='radio-2'
+                                                            htmlFor='radio-2'
                                                             className='radio-label small-size opacity-8'>
                                                             30 minutes
                                                         </label>
@@ -394,7 +396,7 @@ function UserInfo() {
                                                             onChange={e => changeAvailabilityDuration(e.target.value)}
                                                         />
                                                         <label
-                                                            for='radio-3'
+                                                            htmlFor='radio-3'
                                                             className='radio-label small-size opacity-8'>
                                                             1 hour
                                                         </label>
@@ -408,7 +410,7 @@ function UserInfo() {
                                                             onChange={e => changeAvailabilityDuration(e.target.value)}
                                                         />
                                                         <label
-                                                            for='radio-4'
+                                                            htmlFor='radio-4'
                                                             className='radio-label small-size opacity-8'>
                                                             2 hours
                                                         </label>
@@ -422,7 +424,7 @@ function UserInfo() {
                                                             onChange={e => changeAvailabilityDuration(e.target.value)}
                                                         />
                                                         <label
-                                                            for='radio-5'
+                                                            htmlFor='radio-5'
                                                             className='radio-label small-size opacity-8'>
                                                             4 hours
                                                         </label>
@@ -436,7 +438,7 @@ function UserInfo() {
                                                             onChange={e => changeAvailabilityDuration(e.target.value)}
                                                         />
                                                         <label
-                                                            for='radio-6'
+                                                            htmlFor='radio-6'
                                                             className='radio-label small-size opacity-8'>
                                                             8 hours
                                                         </label>
@@ -458,7 +460,7 @@ function UserInfo() {
                                                                 type='checkbox'
                                                                 name='checkbox'
                                                                 value='css'
-                                                                checked
+                                                                defaultChecked
                                                             />
                                                             <span className='small-size opacity-8'>
                                                                 Send Notifications to all Requestors

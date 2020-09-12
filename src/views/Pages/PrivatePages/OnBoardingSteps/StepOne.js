@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { checkSlugAvailability } from '~/redux/boarding/action';
 import { updateSlug } from '~/redux/boarding/action';
+import { loadUser } from '~/redux/auth/actions';
 
 function stepOne(props) {
 
@@ -37,6 +38,7 @@ function stepOne(props) {
                         setError(null);
                         localStorage.removeItem('meeter_slug');
                         localStorage.setItem('meeter_slug', meetSlug);
+                        dispatch(loadUser()); 
                         history.push('/onboarding-two');
                     }
                 })
